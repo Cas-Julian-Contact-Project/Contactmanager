@@ -2,6 +2,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +25,7 @@ public class ContactDirectory
             contactInfo = Files.readAllLines(filepath);
 
             do {
-                exitQuestion = menuFormat(scanner);
+                exitQuestion = intro();
 
                 switch(exitQuestion)
                 {
@@ -45,18 +46,44 @@ public class ContactDirectory
                 }
             } while(!(exitQuestion == 5));
         }
+        catch(InputMismatchException e)
+        {
+            System.out.println("Sorry but you have to enter a number from 1 - 5");
+        }
         catch (Exception e)
         {
+            System.out.println("Sorry but you have to enter a number from 1 - 5");
             e.printStackTrace();
         }
     }
 
-    public static int menuFormat(Scanner scanner)
+    public static String menuFormat()
     {
         System.out.println();
 
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("1. View contacts.\n2. Add a new contact.\n3. Search a contact by name.\n4. Delete an existing contact.\n5. Exit.\nEnter an option (1, 2, 3, 4, or 5):");
-        return scanner.nextInt();
+        return scanner.next();
+    }
+
+    public static int intro()
+    {
+        try
+        {
+            return Integer.parseInt(menuFormat());
+        }
+        catch(NumberFormatException e)
+        {
+            System.out.println("\nYou must enter a number between 1 - 5!!!");
+            return intro();
+        }
+        catch (Exception e)
+        {
+            System.out.println("You must enter a number between 1 - 5!!!");
+            return intro();
+        }
+
     }
 
     public static void viewContacts(List<String> viewableDirectory)
