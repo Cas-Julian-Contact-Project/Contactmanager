@@ -10,9 +10,6 @@ public class ContactDirectory
         ArrayList<String> contactInfo = new ArrayList<>();
         int exitQuestion = 0;
         do {
-//            menuFormat(scanner);
-//
-//            System.out.println("Continue or Exit?");
             exitQuestion = menuFormat(scanner);
 
             switch(exitQuestion)
@@ -24,7 +21,7 @@ public class ContactDirectory
                     addNewContact(contactInfo);
                     break;
                 case 3:
-                    System.out.println("Search a contact by name.");
+                    searchByName(contactInfo);
                     break;
                 case 4:
                     System.out.println("Delete an existing contact.");
@@ -35,18 +32,18 @@ public class ContactDirectory
         } while(!(exitQuestion == 5));
     }
 
+    public static int menuFormat(Scanner scanner)
+    {
+        System.out.println("1. View contacts.\n2. Add a new contact.\n3. Search a contact by name.\n4. Delete an existing contact.\n5. Exit.\nEnter an option (1, 2, 3, 4, or 5):");
+        return scanner.nextInt();
+    }
+
     public static void viewContacts(ArrayList<String> viewableDirectory)
     {
         for(String entry : viewableDirectory)
         {
             System.out.println(entry);
         }
-    }
-
-    public static int menuFormat(Scanner scanner)
-    {
-        System.out.println("1. View contacts.\n2. Add a new contact.\n3. Search a contact by name.\n4. Delete an existing contact.\n5. Exit.\nEnter an option (1, 2, 3, 4, or 5):");
-        return scanner.nextInt();
     }
 
     public static void addNewContact(ArrayList<String> addContactInfo)
@@ -61,7 +58,7 @@ public class ContactDirectory
         phoneNumber = 0;
 
         String formatContacts;
-       /* Prompt User Entering Name/Phone Number; */
+        /* Prompt User Entering Name/Phone Number; */
         System.out.println("Enter First Name: ");
         firstName = scanner.next();
         System.out.println("Enter Last Name: ");
@@ -80,4 +77,33 @@ public class ContactDirectory
             System.out.println(entry);
         }
     }
+
+    public static void searchByName(ArrayList<String> searchName)
+    {
+        Scanner scanner = new Scanner(System.in);
+        boolean isNameFound;
+        isNameFound = true;
+        String searchField;
+        searchField = "";
+        System.out.println("Search by First and/or Last name: ");
+        searchField = scanner.next();
+
+        for(String entry : searchName)
+        {
+            if(entry.contains(searchField))
+            {
+                System.out.println(entry);
+                isNameFound = true;
+                break;
+            } else {
+                isNameFound = false;
+            }
+        }
+        if(!isNameFound)
+        {
+            System.out.printf("Your input %s is not in directory.", searchField);
+        }
+    }
+
+
 }
