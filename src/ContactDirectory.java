@@ -1,3 +1,6 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,27 +12,43 @@ public class ContactDirectory
         Scanner scanner = new Scanner(System.in);
         List<String> contactInfo = new ArrayList<>();
         int exitQuestion = 0;
-        do {
-            exitQuestion = menuFormat(scanner);
 
-            switch(exitQuestion)
-            {
-                case 1:
-                    viewContacts(contactInfo);
-                    break;
-                case 2:
-                    addNewContact(contactInfo);
-                    break;
-                case 3:
-                    searchByName(contactInfo);
-                    break;
-                case 4:
-                    deleteContact(contactInfo);
-                    break;
-                default:
-                    System.out.println("Contents REWRITTEN to txt file.");
-            }
-        } while(!(exitQuestion == 5));
+        String curDir = System.getProperty("user.dir");
+        String directory = curDir + "/src/";
+
+
+        try
+        {
+            /* Read File */
+            Path filepath = Paths.get(directory, "contact.txt");
+            contactInfo = Files.readAllLines(filepath);
+
+            do {
+                exitQuestion = menuFormat(scanner);
+
+                switch(exitQuestion)
+                {
+                    case 1:
+                        viewContacts(contactInfo);
+                        break;
+                    case 2:
+                        addNewContact(contactInfo);
+                        break;
+                    case 3:
+                        searchByName(contactInfo);
+                        break;
+                    case 4:
+                        deleteContact(contactInfo);
+                        break;
+                    default:
+                        Files.write(filepath, contactInfo);
+                }
+            } while(!(exitQuestion == 5));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public static int menuFormat(Scanner scanner)
