@@ -24,7 +24,7 @@ public class ContactDirectory
                     searchByName(contactInfo);
                     break;
                 case 4:
-                    System.out.println("Delete an existing contact.");
+                    deleteContact(contactInfo);
                     break;
                 default:
                     System.out.println("Contents REWRITTEN to txt file.");
@@ -34,16 +34,22 @@ public class ContactDirectory
 
     public static int menuFormat(Scanner scanner)
     {
+        System.out.println();
+
         System.out.println("1. View contacts.\n2. Add a new contact.\n3. Search a contact by name.\n4. Delete an existing contact.\n5. Exit.\nEnter an option (1, 2, 3, 4, or 5):");
         return scanner.nextInt();
     }
 
     public static void viewContacts(ArrayList<String> viewableDirectory)
     {
+        System.out.println();
+
         for(String entry : viewableDirectory)
         {
             System.out.println(entry);
         }
+        System.out.println();
+
     }
 
     public static void addNewContact(ArrayList<String> addContactInfo)
@@ -56,6 +62,8 @@ public class ContactDirectory
         lastName = "";
         long phoneNumber;
         phoneNumber = 0;
+
+        System.out.println();
 
         String formatContacts;
         /* Prompt User Entering Name/Phone Number; */
@@ -76,6 +84,8 @@ public class ContactDirectory
         {
             System.out.println(entry);
         }
+        System.out.println();
+
     }
 
     public static void searchByName(ArrayList<String> searchName)
@@ -105,5 +115,29 @@ public class ContactDirectory
         }
     }
 
+    public static void deleteContact(ArrayList<String> deleteExistingContact)
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        int numberList;
+        numberList = 1;
+
+        int deleteSelection;
+        deleteSelection = 0;
+
+        System.out.println("Select number to delete: \n");
+
+        for(String entry : deleteExistingContact)
+        {
+            System.out.printf("%d - %s\n", numberList, entry);
+            numberList++;
+        }
+
+        System.out.println("\nPlease make a selection:");
+        deleteSelection = scanner.nextInt();
+
+        deleteExistingContact.remove(deleteSelection - 1);
+        System.out.println();
+    }
 
 }
