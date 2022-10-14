@@ -7,7 +7,7 @@ public class ContactDirectory
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> contactInfo = new ArrayList<>();
+        List<String> contactInfo = new ArrayList<>();
         int exitQuestion = 0;
         do {
             exitQuestion = menuFormat(scanner);
@@ -40,7 +40,7 @@ public class ContactDirectory
         return scanner.nextInt();
     }
 
-    public static void viewContacts(ArrayList<String> viewableDirectory)
+    public static void viewContacts(List<String> viewableDirectory)
     {
         System.out.println();
 
@@ -52,7 +52,7 @@ public class ContactDirectory
 
     }
 
-    public static void addNewContact(ArrayList<String> addContactInfo)
+    public static void addNewContact(List<String> addContactInfo)
     {
         Scanner scanner = new Scanner(System.in);
 
@@ -88,7 +88,7 @@ public class ContactDirectory
 
     }
 
-    public static void searchByName(ArrayList<String> searchName)
+    public static void searchByName(List<String> searchName)
     {
         Scanner scanner = new Scanner(System.in);
         boolean isNameFound;
@@ -115,7 +115,7 @@ public class ContactDirectory
         }
     }
 
-    public static void deleteContact(ArrayList<String> deleteExistingContact)
+    public static void deleteContact(List<String> deleteExistingContact)
     {
         Scanner scanner = new Scanner(System.in);
 
